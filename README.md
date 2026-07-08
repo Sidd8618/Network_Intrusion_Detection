@@ -13,25 +13,6 @@ R2L attacks     ──┤
 U2R attacks     ──┘
 ```
 
-## What's included
-
-```
-nids_project/
-├── data/
-│   ├── KDDTrain+.txt        # 125,973 labeled training connections
-│   └── KDDTest+.txt         # 22,544 labeled test connections (includes novel attack subtypes)
-├── models/                  # created after training: scaler, encoders, trained model
-├── outputs/                 # created after training/eval: reports, confusion matrix
-├── src/
-│   ├── config.py            # column names + attack-category mapping (DoS/Probe/R2L/U2R)
-│   ├── preprocess.py         # loading, cleaning, encoding, scaling
-│   ├── train.py              # trains Random Forest and/or Gradient Boosting
-│   ├── evaluate.py           # classification report + confusion matrix plot
-│   └── predict.py            # run the trained model on new traffic (CSV or demo)
-├── requirements.txt
-└── README.md
-```
-
 ## Quick start
 
 ```bash
@@ -86,19 +67,6 @@ And in `outputs/`:
 5. **Evaluation**: accuracy, per-class precision/recall/F1, macro-F1, and a
    confusion matrix.
 
-## A note on realistic accuracy expectations
-
-On the standard `KDDTest+` split you should see roughly:
-- Overall accuracy: **~73–78%**
-- DoS / Probe / Normal: strong precision and recall
-- **R2L and U2R recall will look low** (often under 10%)
-
-This is not a bug — it's a well-documented property of NSL-KDD: the official
-test set intentionally includes attack **subtypes that never appear in
-training**, specifically to test generalization to unseen attacks. Papers
-in this space almost always report the same pattern. If you want higher
-R2L/U2R recall for a demo, you can do a random train/test split from the
-combined data instead of using the official split (see "Extending" below).
 
 ## Extending this project
 
